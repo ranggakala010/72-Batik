@@ -3,16 +3,19 @@ import Layout from '../layouts/Layout.astro';
 import ProductCard from '../components/ProductCard.astro';
 import { products } from '../data/products';
 
+const whatsappNumber = import.meta.env.PUBLIC_WA_NUMBER ?? "";
+const n8nWebhookUrl = import.meta.env.PUBLIC_N8N_WEBHOOK_URL ?? "";
 ---
 
 <Layout title="Katalog Produk">
+	{/*
 	<header class="relative pt-32 pb-24 px-6 overflow-hidden bg-stone-100">
 		<div class="absolute inset-0 opacity-10 pointer-events-none">
 			<div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#8b5e34_1px,transparent_1px)] [background-size:40px_40px]"></div>
 		</div>
 		
 		<div class="max-w-7xl mx-auto text-center relative z-10">
-			<span class="text-xs font-bold tracking-[0.3em] uppercase text-stone-500 mb-6 block">Est. 2026</span>
+			<span class="text-xs font-bold tracking-[0.3em] uppercase text-stone-500 mb-6 block">Est. 2017</span>
 			<h1 class="text-7xl md:text-8xl font-serif font-bold text-stone-900 tracking-tighter mb-8 leading-[0.9]">
 				Mahakarya <br class="hidden md:block"/> Batik Indonesia
 			</h1>
@@ -21,6 +24,7 @@ import { products } from '../data/products';
 			</p>
 		</div>
 	</header>
+	*/}
 
 	<main class="max-w-7xl mx-auto px-6 py-24">
 		<div class="flex justify-between items-end mb-16 px-2">
@@ -40,28 +44,65 @@ import { products } from '../data/products';
 		</div>
 	</main>
 
-	{/* Modular Section Example */}
-	<section class="bg-stone-900 py-32 px-6">
-		<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-			<div class="order-2 md:order-1">
-				<img 
-					src="/batik 3.jpeg" 
-					alt="Craftsmanship" 
-					class="rounded-2xl grayscale hover:grayscale-0 transition-all duration-1000 shadow-2xl opacity-60 hover:opacity-100"
-				/>
-			</div>
-			<div class="order-1 md:order-2">
-				<h2 class="text-4xl font-serif font-bold text-white mb-8 leading-tight italic">Setiap helaian benang memiliki cerita tersendiri.</h2>
-				<p class="text-stone-400 text-lg leading-relaxed mb-10">
-					Proses pembuatan batik kami melibatkan ketabahan dan kecintaan yang mendalam. Dari pemilihan kain terbaik hingga sentuhan akhir pengrajin, kami memastikan setiap produk adalah sebuah mahakarya.
-				</p>
-				<a href="#" class="inline-flex items-center text-xs font-bold tracking-widest uppercase text-white hover:text-stone-300 transition-colors">
-					Pelajari Teknik Kami
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-					</svg>
-				</a>
-			</div>
+	{/* ===== HUBUNGI KAMI SECTION ===== */}
+	<section class="py-32 px-6 bg-stone-50 border-t border-stone-200">
+		<div class="max-w-4xl mx-auto text-center">
+			<h2 class="text-xs font-bold tracking-[0.3em] uppercase text-stone-400 mb-6">Konsultasi Gratis</h2>
+			<h3 class="text-5xl md:text-6xl font-serif font-bold text-stone-900 mb-10 leading-tight">Tertarik dengan <br/> Koleksi Khusus?</h3>
+			<p class="text-lg text-stone-600 mb-12 max-w-xl mx-auto font-light leading-relaxed">
+				Butuh bantuan memilih motif atau ingin memesan dalam jumlah besar? Admin kami siap membantu Anda dengan ramah.
+			</p>
+			
+			<button
+				id="home-wa-button"
+				class="inline-flex items-center px-12 py-6 bg-stone-900 text-white rounded-full hover:bg-stone-800 transition-all transform hover:-translate-y-1 font-bold text-sm tracking-widest uppercase shadow-2xl shadow-stone-900/30 gap-4"
+				data-wa-number={whatsappNumber}
+				data-webhook-url={n8nWebhookUrl}
+			>
+				<svg class="w-6 h-6 text-green-400" fill="currentColor" viewBox="0 0 24 24">
+					<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.007 12.04a11.845 11.845 0 001.59 5.925L0 24l6.135-1.61a11.811 11.811 0 005.912 1.586h.005c6.634 0 12.035-5.403 12.04-12.04a11.821 11.821 0 00-3.528-8.521"/>
+				</svg>
+				Hubungi via WhatsApp
+			</button>
 		</div>
 	</section>
 </Layout>
+
+<script is:inline>
+const homeWaButton = document.getElementById("home-wa-button");
+if (homeWaButton) {
+  homeWaButton.addEventListener("click", async (event) => {
+    event.preventDefault();
+    const waNumber = homeWaButton.dataset.waNumber || "";
+    const webhookUrl = homeWaButton.dataset.webhookUrl || "";
+
+    const payload = {
+      event_name: "Contact",
+      event_id: "ev_home_" + Date.now(),
+      url: window.location.href,
+      ts: new Date().toISOString(),
+    };
+
+    if (window.fbq) {
+      try { window.fbq("track", "Contact"); } catch (_) {}
+    }
+
+    if (webhookUrl) {
+      try {
+        await fetch(webhookUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          keepalive: true
+        });
+      } catch (_) {}
+    }
+
+    const message = `Halo, saya mau tanya, bisa di bantu?`;
+    const waUrl = waNumber
+      ? `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`
+      : `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.location.href = waUrl;
+  });
+}
+</script>

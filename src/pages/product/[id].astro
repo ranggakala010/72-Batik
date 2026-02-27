@@ -12,6 +12,8 @@ export function getStaticPaths() {
 
 const { id } = Astro.params;
 const { title, price, image: img, desc, discount, rating, sales, location } = Astro.props;
+const whatsappNumber = import.meta.env.PUBLIC_WA_NUMBER ?? "";
+const n8nWebhookUrl = import.meta.env.PUBLIC_N8N_WEBHOOK_URL ?? "";
 const otherProducts = products.filter((p) => p.id !== id);
 ---
 
@@ -29,9 +31,7 @@ const otherProducts = products.filter((p) => p.id !== id);
 						alt={title}
 						class="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110"
 					/>
-					<div class="absolute top-6 left-6">
-						<span class="bg-white/90 backdrop-blur py-2 px-4 rounded-full text-xs font-bold tracking-widest text-stone-800 shadow-sm uppercase">Koleksi 2026</span>
-					</div>
+
 				</div>
 
 				{/* Deskripsi Produk - di bawah gambar */}
@@ -105,11 +105,19 @@ const otherProducts = products.filter((p) => p.id !== id);
 				</div>
 
 				<div class="flex flex-col space-y-4 mb-10">
-					<button class="w-full py-5 bg-stone-900 text-white rounded-xl hover:bg-stone-800 transition-all transform hover:-translate-y-1 font-bold text-sm tracking-widest uppercase shadow-xl shadow-stone-900/20">
-						Beli Sekarang
-					</button>
-					<button class="w-full py-5 border border-stone-200 text-stone-800 rounded-xl hover:bg-stone-50 transition-all font-bold text-sm tracking-widest uppercase flex items-center justify-center gap-2">
-						<svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+					<button
+						id="wa-button"
+						class="w-full py-5 bg-stone-900 text-white rounded-xl hover:bg-stone-800 transition-all transform hover:-translate-y-1 font-bold text-sm tracking-widest uppercase shadow-xl shadow-stone-900/20 flex items-center justify-center gap-2"
+						data-wa-number={whatsappNumber}
+						data-webhook-url={n8nWebhookUrl}
+						data-product-id={id}
+						data-product-name={title}
+						data-price={price}
+						data-currency="IDR"
+						data-quantity="1"
+						data-event-name="AddToCart"
+					>
+						<svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 24 24">
 							<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.007 12.04a11.845 11.845 0 001.59 5.925L0 24l6.135-1.61a11.811 11.811 0 005.912 1.586h.005c6.634 0 12.035-5.403 12.04-12.04a11.821 11.821 0 00-3.528-8.521"/>
 						</svg>
 						Tanya via WhatsApp
@@ -140,6 +148,65 @@ const otherProducts = products.filter((p) => p.id !== id);
 		</section>
 	</main>
 </Layout>
+
+<script is:inline>
+const waButton = document.getElementById("wa-button");
+if (waButton) {
+  waButton.addEventListener("click", async (event) => {
+    event.preventDefault();
+    const waNumber = waButton.dataset.waNumber || "";
+    const webhookUrl = waButton.dataset.webhookUrl || "";
+    const productId = waButton.dataset.productId || "";
+    const productName = waButton.dataset.productName || "";
+    const priceText = waButton.dataset.price || "";
+    const currency = waButton.dataset.currency || "IDR";
+    const quantity = Number(waButton.dataset.quantity || "1");
+    const eventName = waButton.dataset.eventName || "Lead";
+
+    const price = Number(priceText.replace(/[^0-9]/g, "")) || 0;
+
+    const getCookie = (name) => {
+      const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+      return match ? decodeURIComponent(match[2]) : "";
+    };
+
+    const url = window.location.href;
+    const params = new URLSearchParams(window.location.search);
+    const utm = {};
+    for (const [key, value] of params.entries()) {
+      if (key.startsWith("utm_")) utm[key] = value;
+    }
+
+    const payload = {
+      event_name: eventName,
+      event_id: "ev_" + Date.now() + "_" + Math.random().toString(36).slice(2),
+      fbp: getCookie("_fbp"),
+      fbc: getCookie("_fbc"),
+      url,
+      utm,
+      user_agent: navigator.userAgent,
+      ts: new Date().toISOString(),
+      form: {
+        product_id: productId,
+        product_name: productName,
+        price,
+        currency,
+        quantity
+      }
+    };
+
+    if (window.fbq) {
+      try { window.fbq("track", eventName); } catch (_) {}
+    }
+
+    const message = `Halo, saya mau tanya produk ${productName}`;
+    const waUrl = waNumber
+      ? `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`
+      : `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.location.href = waUrl;
+  });
+}
+</script>
 
 <style>
 	@keyframes fadeIn {
