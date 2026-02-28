@@ -1,3 +1,9 @@
+import batik1 from "../assets/products/batik 1.jpeg";
+import batik2 from "../assets/products/batik 2.jpeg";
+import batik3 from "../assets/products/batik 3.jpeg";
+import batik4 from "../assets/products/batik 4.jpeg";
+import batik5 from "../assets/products/batik 5.jpeg";
+
 const sharedDesc = `GARANSI tukar / refund dana 100% jika kualitas produk kami tidak premium (Best Quality), Size Kebesaran / Kecilan, Cacat Produksi, Produk Tidak Sesuai Pesanan
 
 ──────────────────────
@@ -45,7 +51,7 @@ export const products = [
 		id: "1",
 		title: "Batik Aksara",
 		price: "Rp 169.700",
-		image: "/batik 1.jpeg",
+		image: batik1,
 		discount: "-46%",
 		rating: "4.8",
 		sales: "1.2RB",
@@ -56,7 +62,7 @@ export const products = [
 		id: "2",
 		title: "Batik Earthy Brown Mocha Mousse",
 		price: "Rp 169.700",
-		image: "/batik 2.jpeg",
+		image: batik2,
 		discount: "-26%",
 		rating: "4.9",
 		sales: "800",
@@ -67,7 +73,7 @@ export const products = [
 		id: "3",
 		title: "Batik Orange Sunbeam",
 		price: "Rp 169.700",
-		image: "/batik 3.jpeg",
+		image: batik3,
 		discount: "-26%",
 		rating: "5.0",
 		sales: "2.5RB",
@@ -78,7 +84,7 @@ export const products = [
 		id: "4",
 		title: "Batik Earthy Brown Mocha Mousse",
 		price: "Rp 169.700",
-		image: "/batik 4.jpeg",
+		image: batik4,
 		discount: "-26%",
 		rating: "4.7",
 		sales: "500",
@@ -89,7 +95,7 @@ export const products = [
 		id: "5",
 		title: "Batik Alonso",
 		price: "Rp 169.700",
-		image: "/batik 5.jpeg",
+		image: batik5,
 		discount: "-26%",
 		rating: "4.9",
 		sales: "1.8RB",

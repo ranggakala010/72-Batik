@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ProductCard from '../../components/ProductCard.astro';
+import { Picture } from "astro:assets";
 import { products } from '../../data/products';
 
 export function getStaticPaths() {
@@ -26,10 +27,15 @@ const otherProducts = products.filter((p) => p.id !== id);
 
 				{/* Gambar Produk */}
 				<div class="relative group overflow-hidden rounded-2xl bg-stone-100 shadow-2xl shadow-stone-200 aspect-square">
-					<img
+					<Picture
 						src={img}
 						alt={title}
+						formats={["avif", "webp"]}
+						sizes="(min-width: 1024px) 50vw, 100vw"
 						class="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110"
+						loading="eager"
+						decoding="async"
+						fetchpriority="high"
 					/>
 
 				</div>
