@@ -65,6 +65,44 @@ import batik7_5 from "../assets/products/batik 7/5.jpeg";
 import batik7_6 from "../assets/products/batik 7/6.jpeg";
 import batik7_7 from "../assets/products/batik 7/7.jpeg";
 
+// Ramadhan Series - Matarasa
+import matarasa_1 from "../assets/products/ramadhan/matarasa/1.jpeg";
+import matarasa_2 from "../assets/products/ramadhan/matarasa/2.jpeg";
+import matarasa_3 from "../assets/products/ramadhan/matarasa/3.jpeg";
+import matarasa_4 from "../assets/products/ramadhan/matarasa/4.jpeg";
+import matarasa_5 from "../assets/products/ramadhan/matarasa/5.jpeg";
+import matarasa_6 from "../assets/products/ramadhan/matarasa/6.jpeg";
+
+// Ramadhan Series - Sarung Matarasa
+import sarung_1 from "../assets/products/ramadhan/Sarung Batik Motif Mata Rasa/1.jpeg";
+import sarung_2 from "../assets/products/ramadhan/Sarung Batik Motif Mata Rasa/2.jpeg";
+import sarung_3 from "../assets/products/ramadhan/Sarung Batik Motif Mata Rasa/3.jpeg";
+import sarung_4 from "../assets/products/ramadhan/Sarung Batik Motif Mata Rasa/4.jpeg";
+
+// Ramadhan Series - Batik Tarangga
+import tarangga_1 from "../assets/products/ramadhan/Batik Tarangga/1.jpeg";
+import tarangga_2 from "../assets/products/ramadhan/Batik Tarangga/2.jpeg";
+import tarangga_3 from "../assets/products/ramadhan/Batik Tarangga/3.jpeg";
+import tarangga_4 from "../assets/products/ramadhan/Batik Tarangga/4.jpeg";
+import tarangga_5 from "../assets/products/ramadhan/Batik Tarangga/5.jpeg";
+import tarangga_6 from "../assets/products/ramadhan/Batik Tarangga/6.jpeg";
+import tarangga_7 from "../assets/products/ramadhan/Batik Tarangga/7.jpeg";
+import tarangga_8 from "../assets/products/ramadhan/Batik Tarangga/8.jpeg";
+import tarangga_9 from "../assets/products/ramadhan/Batik Tarangga/9.jpeg";
+
+// Ramadhan Series - Batik Nadi
+import nadi_1 from "../assets/products/ramadhan/Batik Nadi/1.png";
+import nadi_2 from "../assets/products/ramadhan/Batik Nadi/2.png";
+import nadi_3 from "../assets/products/ramadhan/Batik Nadi/3.png";
+import nadi_4 from "../assets/products/ramadhan/Batik Nadi/4.jpeg";
+import nadi_5 from "../assets/products/ramadhan/Batik Nadi/5.jpeg";
+import nadi_6 from "../assets/products/ramadhan/Batik Nadi/6.jpeg";
+import nadi_7 from "../assets/products/ramadhan/Batik Nadi/7.jpeg";
+
+// Ramadhan Series - Sarung Nadi
+import sarung_nadi_1 from "../assets/products/ramadhan/Sarung Nadi/1.png";
+import sarung_nadi_logo from "../assets/products/ramadhan/Sarung Nadi/72 Batik.png";
+
 const sharedDesc = `GARANSI tukar / refund dana 100% jika kualitas produk kami tidak premium (Best Quality), Size Kebesaran / Kecilan, Cacat Produksi, Produk Tidak Sesuai Pesanan
 
 ──────────────────────
@@ -136,7 +174,8 @@ export const products = [
 		rating: "4.8",
 		sales: "3.8RB",
 		location: "Kab. Karanganyar",
-		desc: sharedDesc
+		desc: sharedDesc,
+		series: "signature"
 	},
 	{
 		id: "6",
@@ -148,11 +187,12 @@ export const products = [
 		rating: "4.9",
 		sales: "2.7RB",
 		location: "Kab. Karanganyar",
-		desc: kulotDesc
+		desc: kulotDesc,
+		series: "signature"
 	},
 	{
 		id: "2",
-		title: "Batik Earthy Brown Mocha Mousse",
+		title: "Batik Aneka Satwa Earthy Brown ",
 		price: "Rp 169.700",
 		image: batik2,
 		gallery: [batik2, batik2_1, batik2_2, batik2_3, batik2_4, batik2_5, batik2_6, batik2],
@@ -160,11 +200,12 @@ export const products = [
 		rating: "4.9",
 		sales: "800",
 		location: "Kab. Karanganyar",
-		desc: sharedDesc
+		desc: sharedDesc,
+		series: "signature"
 	},
 	{
 		id: "3",
-		title: "Batik Orange Sunbeam",
+		title: "Batik Parang Orange",
 		price: "Rp 169.700",
 		image: batik3,
 		gallery: [batik3, batik3_1, batik3_2, batik3_3, batik3_4, batik3_5, batik3_6],
@@ -172,11 +213,12 @@ export const products = [
 		rating: "5.0",
 		sales: "2.5RB",
 		location: "Kab. Karanganyar",
-		desc: sharedDesc
+		desc: sharedDesc,
+		series: "signature"
 	},
 	{
 		id: "4",
-		title: "Batik Earthy Brown Mocha Mousse",
+		title: "Batik Talas Gogor Earthy Brown",
 		price: "Rp 169.700",
 		image: batik4,
 		gallery: [batik4, batik4_1, batik4_2, batik4_3, batik4_4, batik4_5, batik4_6],
@@ -184,7 +226,8 @@ export const products = [
 		rating: "4.7",
 		sales: "500",
 		location: "Kab. Karanganyar",
-		desc: sharedDesc
+		desc: sharedDesc,
+		series: "signature"
 	},
 	{
 		id: "5",
@@ -196,7 +239,8 @@ export const products = [
 		rating: "4.9",
 		sales: "1.8RB",
 		location: "Kab. Karanganyar",
-		desc: sharedDesc
+		desc: sharedDesc,
+		series: "signature"
 	},
 	{
 		id: "7",
@@ -208,6 +252,72 @@ export const products = [
 		rating: "4.9",
 		sales: "1RB",
 		location: "Kab. Karanganyar",
-		desc: sharedDesc
+		desc: sharedDesc,
+		series: "signature"
+	},
+	{
+		id: "ramadhan-matarasa",
+		title: "Outer Batik Premium Mata Rasa ",
+		price: "Rp 270.000",
+		image: matarasa_1,
+		gallery: [matarasa_1, matarasa_2, matarasa_3, matarasa_4, matarasa_5, matarasa_6],
+		discount: "-37%",
+		rating: "4.9",
+		sales: "906",
+		location: "Kab. Karanganyar",
+		desc: sharedDesc,
+		series: "ramadhan"
+	},
+	{
+		id: "ramadhan-sarung-matarasa",
+		title: "Sarung Batik Motif Mata Rasa - Ramadhan Series",
+		price: "Rp 129.000",
+		image: sarung_1,
+		gallery: [sarung_1, sarung_2, sarung_3, sarung_4],
+		discount: "-53%",
+		rating: "4.9",
+		sales: "2RB",
+		location: "Kab. Karanganyar",
+		desc: sharedDesc,
+		series: "ramadhan"
+	},
+	{
+		id: "ramadhan-tarangga",
+		title: "Batik Tarangga - Ramadhan Series",
+		price: "Rp 199.000",
+		image: tarangga_1,
+		gallery: [tarangga_1, tarangga_2, tarangga_3, tarangga_4, tarangga_5, tarangga_6, tarangga_7, tarangga_8, tarangga_9],
+		discount: "-55%",
+		rating: "4.8",
+		sales: "42",
+		location: "Kab. Karanganyar",
+		desc: sharedDesc,
+		series: "ramadhan"
+	},
+	{
+		id: "ramadhan-nadi",
+		title: "Batik Nadi - Ramadhan Series",
+		price: "Rp 225.000",
+		image: nadi_1,
+		gallery: [nadi_1, nadi_2, nadi_3, nadi_4, nadi_5, nadi_6, nadi_7],
+		discount: "-55%",
+		rating: "4.8",
+		sales: "72",
+		location: "Kab. Karanganyar",
+		desc: sharedDesc,
+		series: "ramadhan"
+	},
+	{
+		id: "ramadhan-sarung-nadi",
+		title: "Sarung Batik Nadi - Ramadhan Series",
+		price: "Rp 129.000",
+		image: sarung_nadi_1,
+		gallery: [sarung_nadi_1, sarung_nadi_logo],
+		discount: "-53%",
+		rating: "4.9",
+		sales: "6",
+		location: "Kab. Karanganyar",
+		desc: sharedDesc,
+		series: "ramadhan"
 	},
 ];

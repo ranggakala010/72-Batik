@@ -28,14 +28,14 @@ const otherProducts = products.filter((p) => p.id !== id);
 				{/* Main Gallery Area */}
 				<div class="flex flex-col gap-3 md:gap-4">
 					{/* Main Image Container */}
-					<div class="relative group overflow-hidden rounded-2xl bg-stone-100 shadow-2xl shadow-stone-200 aspect-square max-h-[50vh] md:max-h-[70vh]">
+					<div class="relative group overflow-hidden rounded-2xl bg-stone-100 shadow-2xl shadow-stone-200 aspect-[3/4] max-h-[75vh] md:max-h-[85vh]">
 						<Picture
 							id="main-product-image"
 							src={img}
 							alt={title}
 							formats={["avif", "webp"]}
 							sizes="(min-width: 1024px) 50vw, 100vw"
-							class="w-full h-full object-cover transform transition-transform duration-1000 group-hover:scale-110"
+							class="w-full h-full object-cover object-top transform transition-transform duration-1000 group-hover:scale-110"
 							loading="eager"
 							decoding="async"
 							fetchpriority="high"
@@ -51,7 +51,7 @@ const otherProducts = products.filter((p) => p.id !== id);
 							{gallery && gallery.map((image, index) => (
 								<button
 									class:list={[
-										"gallery-thumb flex-shrink-0 w-16 md:w-20 aspect-square rounded-lg overflow-hidden border-2 transition-all snap-start",
+										"gallery-thumb flex-shrink-0 w-16 md:w-20 aspect-[3/4] rounded-lg overflow-hidden border-2 transition-all snap-start",
 										index === 0 ? "border-orange-500 scale-95" : "border-transparent opacity-60 hover:opacity-100"
 									]}
 									data-index={index}
@@ -233,6 +233,14 @@ const otherProducts = products.filter((p) => p.id !== id);
 						</svg>
 						Tanya via WhatsApp
 					</button>
+
+					<div class="flex items-center justify-center gap-2 py-1">
+						<p class="text-stone-900 font-bold italic text-sm flex items-center gap-2 animate-pulse">
+							<span class="flex h-2 w-2 rounded-full bg-orange-500"></span>
+							Free Ongkir untuk pembelian hari ini
+						</p>
+					</div>
+
 				</div>
 
 	
@@ -310,9 +318,12 @@ if (waButton) {
       try { window.fbq("track", eventName); } catch (_) {}
     }
 
+    const numbers = waNumber.split(",").map(n => n.trim());
+    const selectedNumber = numbers[Math.floor(Math.random() * numbers.length)];
+
     const message = `Halo, saya mau tanya produk ${productName}`;
-    const waUrl = waNumber
-      ? `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`
+    const waUrl = selectedNumber
+      ? `https://wa.me/${selectedNumber}?text=${encodeURIComponent(message)}`
       : `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.location.href = waUrl;
   });
