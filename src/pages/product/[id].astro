@@ -16,6 +16,7 @@ const { title, price, image: img, gallery, desc, discount, rating, sales, locati
 const whatsappNumber = import.meta.env.PUBLIC_WA_NUMBER ?? "";
 const n8nWebhookUrl = import.meta.env.PUBLIC_N8N_WEBHOOK_URL ?? "";
 const otherProducts = products.filter((p) => p.id !== id);
+const galleryImages = gallery && gallery.length > 0 ? gallery : [img];
 ---
 
 <Layout title={title}>
@@ -29,17 +30,29 @@ const otherProducts = products.filter((p) => p.id !== id);
 				<div class="flex flex-col gap-3 md:gap-4">
 					{/* Main Image Container */}
 					<div class="relative group overflow-hidden rounded-2xl bg-stone-100 shadow-2xl shadow-stone-200 aspect-[3/4] max-h-[75vh] md:max-h-[85vh]">
-						<Picture
-							id="main-product-image"
-							src={img}
-							alt={title}
-							formats={["avif", "webp"]}
-							sizes="(min-width: 1024px) 50vw, 100vw"
-							class="w-full h-full object-cover object-top transform transition-transform duration-1000 group-hover:scale-110"
-							loading="eager"
-							decoding="async"
-							fetchpriority="high"
-						/>
+						<div id="main-gallery" class="relative w-full h-full">
+							{galleryImages.map((image, index) => (
+								<div
+									class:list={[
+										"main-gallery-image absolute inset-0 transition-opacity duration-300",
+										index === 0 ? "opacity-100 z-10" : "opacity-0 pointer-events-none"
+									]}
+									data-index={index}
+									aria-hidden={index === 0 ? "false" : "true"}
+								>
+									<Picture
+										src={image}
+										alt={`${title} view ${index + 1}`}
+										formats={["avif", "webp"]}
+										sizes="(min-width: 1024px) 50vw, 100vw"
+										class="w-full h-full object-cover object-top transform transition-transform duration-1000 group-hover:scale-110"
+										loading={index === 0 ? "eager" : "lazy"}
+										decoding="async"
+										fetchpriority={index === 0 ? "high" : "auto"}
+									/>
+								</div>
+							))}
+						</div>
 					</div>
 
 					{/* Thumbnail Navigation */}
@@ -48,20 +61,23 @@ const otherProducts = products.filter((p) => p.id !== id);
 							id="thumbnail-container"
 							class="flex gap-2 md:gap-3 overflow-x-auto scrollbar-hide snap-x pointer-events-auto py-2"
 						>
-							{gallery && gallery.map((image, index) => (
+							{galleryImages.map((image, index) => (
 								<button
 									class:list={[
 										"gallery-thumb flex-shrink-0 w-16 md:w-20 aspect-[3/4] rounded-lg overflow-hidden border-2 transition-all snap-start",
 										index === 0 ? "border-orange-500 scale-95" : "border-transparent opacity-60 hover:opacity-100"
 									]}
 									data-index={index}
-									data-src={image.src}
+									type="button"
 								>
-									<img 
-										src={image.src} 
+									<Picture
+										src={image}
 										alt={`${title} view ${index + 1}`}
+										formats={["avif", "webp"]}
+										sizes="(min-width: 768px) 80px, 64px"
 										class="w-full h-full object-cover pointer-events-none"
 										loading="lazy"
+										decoding="async"
 									/>
 								</button>
 							))}
@@ -330,33 +346,24 @@ if (waButton) {
 }
 
 /** Product Gallery Logic **/
-const mainImageContainer = document.getElementById('main-product-image');
+const mainImages = document.querySelectorAll('.main-gallery-image');
 const thumbs = document.querySelectorAll('.gallery-thumb');
 const thumbContainer = document.getElementById('thumbnail-container');
 const prevBtn = document.getElementById('prev-thumb');
 const nextBtn = document.getElementById('next-thumb');
 
-if (thumbs.length > 0) {
+if (thumbs.length > 0 && mainImages.length > 0) {
 	thumbs.forEach(thumb => {
 		thumb.addEventListener('click', () => {
-			const newSrc = thumb.dataset.src;
-			
-			// Try to find the image - the ID might be on the img or a wrapper
-			const imgElement = mainImageContainer?.tagName === 'IMG' 
-				? mainImageContainer 
-				: mainImageContainer?.querySelector('img');
-
-			if (imgElement) {
-				// 1. Remove parent <picture>'s <source> tags to force <img> src
-				const pictureElement = imgElement.closest('picture');
-				if (pictureElement) {
-					pictureElement.querySelectorAll('source').forEach(s => s.remove());
-				}
-
-				// 2. Update img attributes
-				imgElement.src = newSrc;
-				imgElement.srcset = ""; 
-			}
+			const activeIndex = thumb.dataset.index;
+			mainImages.forEach(image => {
+				const isActive = image.dataset.index === activeIndex;
+				image.classList.toggle('opacity-100', isActive);
+				image.classList.toggle('z-10', isActive);
+				image.classList.toggle('opacity-0', !isActive);
+				image.classList.toggle('pointer-events-none', !isActive);
+				image.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+			});
 
 			// Update Thumbnails Borders
 			thumbs.forEach(t => {

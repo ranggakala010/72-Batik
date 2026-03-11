@@ -32,7 +32,8 @@ const {
 				src={image}
 				alt={title}
 				formats={["avif", "webp"]}
-				sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+				widths={[320, 480, 640, 768, 840, 960, 1080, 1280]}
+				sizes="(min-width: 1280px) 379px, (min-width: 1024px) calc((100vw - 112px) / 3), (min-width: 768px) calc((100vw - 72px) / 2), calc(100vw - 48px)"
 				class="w-full h-full object-cover object-top transition-transform duration-700 scale-100 group-hover:scale-110"
 				loading="lazy"
 				decoding="async"
